@@ -1,0 +1,525 @@
+/* ===== FONTS ===== */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Outfit:wght@300;400;500;600;700;800;900&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 1rem;
+
+    /* Birthday Light Blue Theme - OKLCH tokens */
+    --background: 0.97 0.018 220;
+    --foreground: 0.18 0.04 230;
+
+    --card: 0.99 0.012 215;
+    --card-foreground: 0.18 0.04 230;
+
+    --popover: 0.99 0.012 215;
+    --popover-foreground: 0.18 0.04 230;
+
+    /* Sky blue primary */
+    --primary: 0.62 0.16 230;
+    --primary-foreground: 0.99 0 0;
+
+    /* Soft lavender secondary */
+    --secondary: 0.92 0.04 260;
+    --secondary-foreground: 0.28 0.06 255;
+
+    --muted: 0.94 0.025 225;
+    --muted-foreground: 0.52 0.05 230;
+
+    /* Gold accent */
+    --accent: 0.88 0.14 80;
+    --accent-foreground: 0.22 0.05 70;
+
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+
+    --border: 0.88 0.04 220;
+    --input: 0.92 0.04 215;
+    --ring: 0.62 0.16 230;
+
+    --chart-1: 0.62 0.16 230;
+    --chart-2: 0.72 0.18 300;
+    --chart-3: 0.78 0.14 80;
+    --chart-4: 0.65 0.18 160;
+    --chart-5: 0.7 0.2 25;
+
+    --sidebar: 0.96 0.02 220;
+    --sidebar-foreground: 0.18 0.04 230;
+    --sidebar-primary: 0.62 0.16 230;
+    --sidebar-primary-foreground: 0.99 0 0;
+    --sidebar-accent: 0.92 0.04 260;
+    --sidebar-accent-foreground: 0.28 0.06 255;
+    --sidebar-border: 0.88 0.04 220;
+    --sidebar-ring: 0.62 0.16 230;
+
+    /* Custom birthday tokens */
+    --sky: 0.72 0.16 225;
+    --sky-light: 0.92 0.08 215;
+    --sky-dark: 0.52 0.18 235;
+    --gold: 0.82 0.18 80;
+    --gold-light: 0.92 0.12 85;
+    --cream: 0.98 0.01 90;
+    --pink: 0.78 0.16 340;
+    --mint: 0.82 0.12 165;
+    --lavender: 0.82 0.1 290;
+    --peach: 0.88 0.1 40;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Outfit', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes float-up {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-110vh) rotate(20deg); opacity: 0; }
+}
+
+@keyframes float-balloon {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-18px) rotate(3deg); }
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  50% { opacity: 0.6; transform: scale(1.3) rotate(180deg); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { text-shadow: 0 0 10px oklch(0.72 0.18 225 / 60%), 0 0 25px oklch(0.82 0.18 80 / 40%); }
+  50% { text-shadow: 0 0 20px oklch(0.62 0.22 225 / 80%), 0 0 45px oklch(0.82 0.18 80 / 60%), 0 0 70px oklch(0.72 0.16 225 / 30%); }
+}
+
+@keyframes confetti-fall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+  70% { transform: scale(1.15) rotate(3deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes balloon-pop {
+  0% { transform: scale(1); opacity: 1; }
+  40% { transform: scale(1.3); opacity: 0.8; }
+  60% { transform: scale(0.1); opacity: 0.4; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+@keyframes wish-float {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-80px) scale(0.6); opacity: 0; }
+}
+
+@keyframes ribbon-fly {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: translate(var(--rx, 60px), var(--ry, -80px)) rotate(var(--rr, 180deg)) scale(0.3); opacity: 0; }
+}
+
+@keyframes gift-open {
+  0% { transform: translateY(0) rotate(0deg); }
+  30% { transform: translateY(-20px) rotate(-8deg); }
+  60% { transform: translateY(-35px) rotate(5deg); }
+  100% { transform: translateY(-120px) rotate(-3deg); opacity: 0; }
+}
+
+@keyframes sparkle-burst {
+  0% { transform: scale(0) rotate(0deg); opacity: 1; }
+  50% { transform: scale(1.5) rotate(180deg); opacity: 0.8; }
+  100% { transform: scale(0) rotate(360deg); opacity: 0; }
+}
+
+@keyframes wheel-spin {
+  from { transform: rotate(var(--start-angle, 0deg)); }
+  to { transform: rotate(var(--end-angle, 1440deg)); }
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fade-up {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes bounce-in {
+  0% { transform: scale(0); }
+  60% { transform: scale(1.2); }
+  80% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  20% { transform: translateX(-4px) rotate(-2deg); }
+  40% { transform: translateX(4px) rotate(2deg); }
+  60% { transform: translateX(-3px) rotate(-1deg); }
+  80% { transform: translateX(3px) rotate(1deg); }
+}
+
+@keyframes candle-flicker {
+  0%, 100% { transform: scaleY(1) translateX(0); opacity: 1; }
+  25% { transform: scaleY(1.1) translateX(1px); opacity: 0.9; }
+  50% { transform: scaleY(0.9) translateX(-1px); opacity: 1; }
+  75% { transform: scaleY(1.05) translateX(0.5px); opacity: 0.95; }
+}
+
+@keyframes star-twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.5); }
+}
+
+@keyframes envelope-flip {
+  0% { transform: perspective(1200px) rotateY(0deg); }
+  100% { transform: perspective(1200px) rotateY(180deg); }
+}
+
+@keyframes envelope-flip-reverse {
+  0% { transform: perspective(1200px) rotateY(180deg); }
+  100% { transform: perspective(1200px) rotateY(0deg); }
+}
+
+.animate-float-up { animation: float-up linear infinite; }
+.animate-float-balloon { animation: float-balloon ease-in-out infinite; }
+.animate-bob { animation: bob ease-in-out 3s infinite; }
+.animate-sparkle { animation: sparkle ease-in-out 2s infinite; }
+.animate-glow-pulse { animation: glow-pulse 3s ease-in-out infinite; }
+.animate-pop-in { animation: pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.animate-balloon-pop { animation: balloon-pop 0.4s ease-out forwards; }
+.animate-wish-float { animation: wish-float 1.5s ease-out forwards; }
+.animate-ribbon-fly { animation: ribbon-fly 0.8s ease-out forwards; }
+.animate-gift-open { animation: gift-open 0.8s ease-in-out forwards; }
+.animate-sparkle-burst { animation: sparkle-burst 0.8s ease-out forwards; }
+.animate-slide-in-right { animation: slide-in-right 0.4s ease-out forwards; }
+.animate-fade-up { animation: fade-up 0.6s ease-out forwards; }
+.animate-bounce-in { animation: bounce-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.animate-shake { animation: shake 0.5s ease-in-out; }
+.animate-star-twinkle { animation: star-twinkle ease-in-out infinite; }
+
+/* Flip card styles — elastic 3D spring */
+.flip-card {
+  perspective: 1600px;
+  cursor: pointer;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* Overshoot spring: ease past 180°, settle back */
+  transition: transform 0.9s cubic-bezier(0.34, 1.40, 0.64, 1);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 1.5rem;
+  /* Premium inner highlight */
+  box-shadow:
+    0 0 0 1px oklch(0.92 0.04 220 / 60%),
+    0 8px 40px oklch(0.62 0.16 230 / 18%),
+    0 2px 8px oklch(0.18 0.04 230 / 8%),
+    inset 0 1px 0 oklch(1 0 0 / 50%);
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* Gift box styles */
+.gift-box-container {
+  perspective: 1000px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: oklch(0.94 0.025 225);
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(0.72 0.16 225 / 60%);
+  border-radius: 3px;
+}
+
+/* Glass card effect — rich layered glass */
+.glass-card {
+  background: 
+    linear-gradient(135deg, oklch(1 0 0 / 72%) 0%, oklch(0.98 0.015 215 / 60%) 100%);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid oklch(0.92 0.04 220 / 70%);
+  box-shadow: 
+    0 1px 0 oklch(1 0 0 / 60%) inset,
+    0 -1px 0 oklch(0.72 0.1 220 / 20%) inset;
+}
+
+/* Birthday atmospheric background — layered aurora depth */
+.birthday-bg {
+  background-color: oklch(0.965 0.022 215);
+  background-image:
+    /* Fine noise texture */
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"),
+    /* Top-left aurora — deep sky blue */
+    radial-gradient(ellipse 80% 60% at 10% 0%, oklch(0.82 0.12 222 / 55%) 0%, transparent 65%),
+    /* Top-right bloom — soft violet */
+    radial-gradient(ellipse 60% 50% at 90% 5%, oklch(0.86 0.1 285 / 38%) 0%, transparent 60%),
+    /* Center-left wash — pale sky */
+    radial-gradient(ellipse 50% 40% at 0% 50%, oklch(0.90 0.07 215 / 30%) 0%, transparent 55%),
+    /* Bottom gold warmth */
+    radial-gradient(ellipse 70% 45% at 55% 100%, oklch(0.94 0.08 75 / 28%) 0%, transparent 60%),
+    /* Bottom-right — blush */
+    radial-gradient(ellipse 55% 40% at 100% 90%, oklch(0.90 0.08 345 / 22%) 0%, transparent 55%);
+}
+
+/* Shimmer effect — richer multi-stop */
+@keyframes shimmer {
+  0% { background-position: -300% center; }
+  100% { background-position: 300% center; }
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    105deg,
+    oklch(0.55 0.18 235) 0%,
+    oklch(0.68 0.16 228) 15%,
+    oklch(0.84 0.20 75)  30%,
+    oklch(0.96 0.10 90)  42%,
+    oklch(0.84 0.20 75)  54%,
+    oklch(0.74 0.18 285) 68%,
+    oklch(0.68 0.16 228) 82%,
+    oklch(0.55 0.18 235) 100%
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 5s linear infinite;
+  /* Subtle letter-spacing for display text */
+  letter-spacing: -0.02em;
+}
+
+/* Stars background */
+.stars-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.stars-bg::before {
+  content: '✦ ✧ ✦ ✧ ✦ ✧ ✦';
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  right: 5%;
+  font-size: 0.6rem;
+  color: oklch(0.82 0.18 80 / 40%);
+  letter-spacing: 2rem;
+  animation: star-twinkle 3s ease-in-out infinite;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Confetti piece */
+.confetti-piece {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  animation: confetti-fall linear forwards;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Balloons */
+.balloon {
+  cursor: pointer;
+  user-select: none;
+  transition: filter 0.2s;
+}
+
+.balloon:hover {
+  filter: brightness(1.1) saturate(1.2);
+}
+
+/* Wishing well bubble */
+@keyframes bubble-rise {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  50% { transform: translateY(-40px) scale(1.1); opacity: 0.8; }
+  100% { transform: translateY(-80px) scale(0.7); opacity: 0; }
+}
+
+.bubble-rise {
+  animation: bubble-rise 2s ease-out forwards;
+}
+
+/* ===== SECTION DEPTH ===== */
+
+/* Hero gets the richest aurora — already handled by birthday-bg + canvas balloons */
+section[data-ocid="hero.section"] {
+  background-image:
+    radial-gradient(ellipse 65% 55% at 15% 20%, oklch(0.80 0.14 220 / 45%) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 85% 10%, oklch(0.87 0.1 285 / 30%) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 50% 95%, oklch(0.93 0.10 75 / 25%) 0%, transparent 60%);
+  background-color: oklch(0.965 0.022 215);
+}
+
+/* Personal note section — cool moonlight */
+.note-section-bg {
+  background-image:
+    radial-gradient(ellipse 70% 60% at 80% 30%, oklch(0.88 0.08 250 / 30%) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 20% 70%, oklch(0.92 0.06 215 / 25%) 0%, transparent 55%);
+}
+
+/* Gift section — warm gold bloom */
+.gift-section-bg {
+  background-image:
+    radial-gradient(ellipse 60% 50% at 50% 50%, oklch(0.94 0.10 75 / 22%) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 35% at 80% 80%, oklch(0.87 0.10 345 / 18%) 0%, transparent 50%);
+}
+
+/* Activities section — playful multi-color */
+.activities-section-bg {
+  background-image:
+    radial-gradient(ellipse 55% 45% at 10% 20%, oklch(0.88 0.10 210 / 28%) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 40% at 90% 70%, oklch(0.88 0.10 290 / 22%) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 35% at 50% 100%, oklch(0.93 0.08 75 / 20%) 0%, transparent 55%);
+}
+
+/* ===== PREMIUM INTERACTIVE STATES ===== */
+
+/* Buttons — premium hover glow */
+.btn-sky {
+  background: linear-gradient(135deg, oklch(0.65 0.18 228), oklch(0.58 0.20 235));
+  box-shadow: 0 4px 20px oklch(0.62 0.16 230 / 35%), inset 0 1px 0 oklch(1 0 0 / 25%);
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.2s ease,
+              filter 0.2s ease;
+}
+.btn-sky:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 28px oklch(0.62 0.16 230 / 45%), inset 0 1px 0 oklch(1 0 0 / 30%);
+  filter: brightness(1.08);
+}
+.btn-sky:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 10px oklch(0.62 0.16 230 / 25%), inset 0 1px 0 oklch(1 0 0 / 20%);
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, oklch(0.84 0.20 78), oklch(0.78 0.18 68));
+  box-shadow: 0 4px 20px oklch(0.82 0.18 80 / 40%), inset 0 1px 0 oklch(1 0 0 / 35%);
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.2s ease,
+              filter 0.2s ease;
+}
+.btn-gold:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 10px 32px oklch(0.82 0.18 80 / 50%), inset 0 1px 0 oklch(1 0 0 / 40%);
+  filter: brightness(1.06);
+}
+.btn-gold:active {
+  transform: translateY(0) scale(0.97);
+}
+
+/* Section heading accent line */
+.heading-accent {
+  display: inline-block;
+  position: relative;
+}
+.heading-accent::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, oklch(0.62 0.16 230), oklch(0.82 0.18 80), oklch(0.72 0.16 285));
+  opacity: 0.7;
+}
+
+/* Countdown panel — pulsing glow ring */
+@keyframes ring-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.62 0.16 230 / 30%), 0 4px 20px oklch(0.62 0.16 230 / 12%); }
+  50%       { box-shadow: 0 0 0 6px oklch(0.62 0.16 230 / 0%), 0 4px 24px oklch(0.62 0.16 230 / 22%); }
+}
+.countdown-pulse {
+  animation: ring-pulse 3s ease-in-out infinite;
+}
+
+/* Wish wall card hover */
+.wish-card {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s ease;
+}
+.wish-card:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 12px 32px oklch(0.62 0.16 230 / 18%), 0 2px 8px oklch(0.18 0.04 230 / 8%);
+}
+
+/* ===== TYPOGRAPHY POLISH ===== */
+
+/* Display headings — optical tightening */
+.font-display {
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+}
+
+/* Section label pill */
+.label-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: linear-gradient(135deg, oklch(0.62 0.16 230 / 14%), oklch(0.72 0.12 250 / 10%));
+  border: 1px solid oklch(0.72 0.12 230 / 30%);
+  color: oklch(0.52 0.18 235);
+  font-family: 'Bricolage Grotesque', 'Trebuchet MS', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.9rem;
+  border-radius: 100px;
+  backdrop-filter: blur(8px);
+}
+
+/* Scroll indicator */
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(10px); opacity: 1; }
+}
+.scroll-indicator {
+  animation: scroll-bounce 1.8s ease-in-out infinite;
+}
