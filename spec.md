@@ -1,41 +1,29 @@
-# Birthday Wish Website
+# Birthday Wish
 
 ## Current State
-New project. No existing code.
+- App has 6 flip wish cards (BirthdayWishCards.tsx) with hardcoded label and message text
+- PersonalNoteCard component exists but is NOT rendered in App.tsx
+- CustomizePanel has fields: recipientName, birthdayDate, personalNote, senderName, surpriseMessage, backgroundTheme
+- BirthdayProfile backend type has those same fields (no card-specific fields)
 
 ## Requested Changes (Diff)
 
 ### Add
-- Fully animated birthday landing page with light blue theme
-- Customizable birthday message (recipient name, sender name, personalized note)
-- Animated balloon and confetti effects throughout the page
-- Virtual gift box activity: animated unwrapping with surprise message/reveal inside
-- Birthday card activity: flip card animation to reveal a personalized message
-- Balloon pop mini-game: click to pop floating balloons for points
-- Wish well activity: user types and "sends" a wish into a wishing well
-- Spin the wheel activity: fun wheel spinner with birthday-themed prizes
-- Interactive candles on a cake: click candles to blow them out with puff animation
-- Virtual gift customization panel: choose gift box color/style, ribbon, bow, surprise message
-- Birthday countdown if date is in the future
-- Music/sound toggle for birthday jingle
+- Customisable text (label + message) for each of the 6 wish cards, stored in localStorage
+- A "Special Letter" section rendered in the page (using PersonalNoteCard component) that shows the personalNote and senderName from profile — this component is already built but unused
+- CustomizePanel sections to edit each card's label & message (6 cards)
+- CustomizePanel section to edit the special letter (maps to existing personalNote field, which is already editable — just ensure it's clearly labelled as "Special Letter")
 
 ### Modify
-N/A
+- BirthdayWishCards: accept optional customCards prop (array of {label, message}) to override hardcoded defaults
+- App.tsx: load customCards from localStorage, pass to BirthdayWishCards, add PersonalNoteCard section with ScrollReveal
+- CustomizePanel FormFields: add collapsible section for editing all 6 card labels+messages; rename personalNote field label to "Special Letter Text"
 
 ### Remove
-N/A
+- Nothing removed
 
 ## Implementation Plan
-1. Backend: store customizable birthday profile (recipient name, sender name, birthday date, personal note, gift settings: box color, ribbon color, bow style, surprise message)
-2. Backend: store wish messages submitted by visitors
-3. Frontend: animated hero section with floating balloons, confetti burst, cake with candles
-4. Frontend: customization panel (admin mode) to set all birthday details and gift settings
-5. Frontend: virtual gift box with unwrap animation and customizable surprise
-6. Frontend: flip birthday card with personalized message
-7. Frontend: balloon pop mini-game with score counter
-8. Frontend: spin the wheel with birthday prizes
-9. Frontend: interactive cake - click candles to blow them out
-10. Frontend: wishing well - type and submit a wish
-11. Frontend: display all submitted wishes in a floating bubble wall
-12. Frontend: countdown timer if birthday is in the future
-13. Frontend: sound toggle for background birthday music
+1. Update BirthdayWishCards to accept `customCards?: {label: string; message: string}[]` prop; use custom text when provided
+2. Update App.tsx: load/save customCards from localStorage (key: `bdayCards`); pass to BirthdayWishCards; add PersonalNoteCard with ScrollReveal after the wish cards section
+3. Update CustomizePanel: add 6 card text fields (label + message each) in FormFields; pass customCards/setCustomCards through Props; save to localStorage on save; label personalNote as "Special Letter Text"
+4. Validate and build

@@ -66,7 +66,6 @@ export default {
           border: "oklch(var(--sidebar-border))",
           ring: "oklch(var(--sidebar-ring))",
         },
-        // Birthday custom tokens
         sky: {
           DEFAULT: "oklch(var(--sky))",
           light: "oklch(var(--sky-light))",
@@ -83,9 +82,9 @@ export default {
         peach: "oklch(var(--peach))",
       },
       fontFamily: {
-        display: ["'Fraunces'", "'Georgia'", "serif"],
-        body: ["'Outfit'", "system-ui", "sans-serif"],
-        fun: ["'Bricolage Grotesque'", "'Trebuchet MS'", "sans-serif"],
+        heading: ["'Pacifico'", "cursive"],
+        body: ["'Quicksand'", "sans-serif"],
+        display: ["'Pacifico'", "cursive"],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -100,10 +99,8 @@ export default {
         birthday: "0 12px 48px oklch(0.62 0.16 230 / 22%), 0 4px 16px oklch(0.62 0.16 230 / 12%), inset 0 1px 0 oklch(1 0 0 / 50%)",
         "birthday-lg": "0 20px 64px oklch(0.62 0.16 230 / 28%), 0 8px 24px oklch(0.62 0.16 230 / 16%), inset 0 1px 0 oklch(1 0 0 / 55%)",
         gold: "0 8px 32px oklch(0.82 0.18 80 / 35%), 0 2px 8px oklch(0.82 0.18 80 / 20%), inset 0 1px 0 oklch(1 0 0 / 40%)",
-        "gold-lg": "0 14px 44px oklch(0.82 0.18 80 / 45%), 0 4px 12px oklch(0.82 0.18 80 / 25%), inset 0 1px 0 oklch(1 0 0 / 50%)",
-        soft: "0 4px 24px oklch(0.62 0.16 230 / 15%), 0 1px 4px oklch(0.18 0.04 230 / 8%), inset 0 1px 0 oklch(1 0 0 / 45%)",
-        "inner-glow": "inset 0 1px 0 oklch(1 0 0 / 40%), inset 0 -1px 0 oklch(0.72 0.1 220 / 15%)",
-        float: "0 16px 40px oklch(0.62 0.16 230 / 20%), 0 4px 12px oklch(0.18 0.04 230 / 10%), 0 1px 2px oklch(0.18 0.04 230 / 6%)",
+        soft: "0 4px 24px oklch(0.62 0.16 230 / 15%), 0 1px 4px oklch(0.18 0.04 230 / 8%)",
+        float: "0 16px 40px oklch(0.62 0.16 230 / 20%), 0 4px 12px oklch(0.18 0.04 230 / 10%)",
       },
       keyframes: {
         "accordion-down": {
@@ -114,20 +111,10 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "float-gentle": {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-12px)" },
-        },
-        "spin-slow": {
-          from: { transform: "rotate(0deg)" },
-          to: { transform: "rotate(360deg)" },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "float-gentle": "float-gentle 4s ease-in-out infinite",
-        "spin-slow": "spin-slow 8s linear infinite",
       },
     },
   },

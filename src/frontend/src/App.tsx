@@ -1,199 +1,177 @@
-import { Skeleton } from "@/components/ui/skeleton";
 import { Toaster } from "@/components/ui/sonner";
-import { motion } from "motion/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import ConfettiEffect from "./components/ConfettiEffect";
-import CustomizePanel from "./components/CustomizePanel";
-import FloatingBalloons from "./components/FloatingBalloons";
-import FunActivities from "./components/FunActivities";
-import HeroSection from "./components/HeroSection";
+import type { BirthdayProfile } from "./backend.d";
+import { BirthdayWishCards } from "./components/BirthdayWishCards";
+import type { CustomCard } from "./components/BirthdayWishCards";
+import { CakeSection } from "./components/CakeSection";
+import { ConfettiEffect } from "./components/ConfettiEffect";
+import { CustomizePanel } from "./components/CustomizePanel";
+import { FloatingBalloons } from "./components/FloatingBalloons";
+import { HeroSection } from "./components/HeroSection";
+import { MusicToggle } from "./components/MusicToggle";
 import PersonalNoteCard from "./components/PersonalNoteCard";
-import VirtualGiftBox from "./components/VirtualGiftBox";
-import { useBirthdayProfile, useWishes } from "./hooks/useQueries";
+import { ScrollReveal } from "./components/ScrollReveal";
+import { VirtualGiftBox } from "./components/VirtualGiftBox";
+import { WishingWell } from "./components/WishingWell";
+import { useBirthdayProfile } from "./hooks/useQueries";
+import { DEFAULT_PROFILE } from "./hooks/useQueries";
 
-export default function App() {
-  const { data: profile, isLoading: profileLoading } = useBirthdayProfile();
-  const { data: wishes = [] } = useWishes();
+const queryClient = new QueryClient();
+const CARDS_KEY = "bdayCards";
+
+function loadCustomCards(): CustomCard[] {
+  try {
+    const stored = localStorage.getItem(CARDS_KEY);
+    if (stored) return JSON.parse(stored) as CustomCard[];
+  } catch {
+    // ignore
+  }
+  return [];
+}
+
+function BirthdayApp() {
+  const { data: profileData } = useBirthdayProfile();
+  const [config, setConfig] = useState<BirthdayProfile>(DEFAULT_PROFILE);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [pageLoaded, setPageLoaded] = useState(false);
+  const [customCards, setCustomCards] = useState<CustomCard[]>(loadCustomCards);
 
   useEffect(() => {
-    // Trigger confetti on first load after profile loads
-    if (profile && !pageLoaded) {
-      setPageLoaded(true);
-      setTimeout(() => setShowConfetti(true), 800);
-    }
-  }, [profile, pageLoaded]);
+    if (profileData) setConfig(profileData);
+  }, [profileData]);
 
-  if (profileLoading || !profile) {
-    return (
-      <div className="min-h-screen birthday-bg flex items-center justify-center">
-        <div className="flex flex-col items-center gap-6">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{
-              duration: 2,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
-            }}
-            className="text-5xl"
-          >
-            🎂
-          </motion.div>
-          <div className="space-y-3 text-center">
-            <Skeleton className="h-8 w-64 mx-auto rounded-xl" />
-            <Skeleton className="h-4 w-48 mx-auto rounded-xl" />
-            <Skeleton className="h-4 w-56 mx-auto rounded-xl" />
-          </div>
-          <p className="font-fun text-sm text-foreground/50 animate-pulse">
-            Loading your birthday experience...
-          </p>
-        </div>
-      </div>
-    );
-  }
+  const handleSave = (newConfig: BirthdayProfile) => {
+    setConfig(newConfig);
+    setCustomCards(loadCustomCards());
+  };
 
   return (
-    <div className="min-h-screen birthday-bg">
-      {/* Floating balloons background */}
+    <div className="min-h-screen bg-gradient-to-b from-sky-100 via-blue-50 to-purple-50 relative overflow-x-hidden">
       <FloatingBalloons />
+      <MusicToggle />
+      {showConfetti && <ConfettiEffect onDone={() => setShowConfetti(false)} />}
 
-      {/* Confetti effect on load */}
-      <ConfettiEffect
-        trigger={showConfetti}
-        onComplete={() => setShowConfetti(false)}
-      />
+      {/* Hero - immediately visible */}
+      <section className="relative z-10">
+        <HeroSection config={config} />
+      </section>
 
-      {/* Main content */}
-      <main className="relative z-10">
-        {/* Hero */}
-        <HeroSection profile={profile} />
-
-        {/* Divider with decorations */}
-        <SectionDivider emoji="💌" />
-
-        {/* Personal Note (flip card) */}
-        <PersonalNoteCard profile={profile} />
-
-        {/* Divider */}
-        <SectionDivider emoji="🎁" />
-
-        {/* Virtual Gift Box */}
-        <VirtualGiftBox profile={profile} />
-
-        {/* Divider */}
-        <SectionDivider emoji="🎉" />
-
-        {/* Fun Activities */}
-        <FunActivities wishes={wishes} />
-
-        {/* Footer */}
-        <footer
-          className="py-12 px-6 text-center"
+      {/* Cake Section */}
+      <ScrollReveal className="relative z-10">
+        <section
+          className="mx-auto max-w-2xl px-4"
           style={{
             background:
-              "linear-gradient(to top, oklch(0.94 0.04 220 / 60%), transparent)",
-            borderTop: "1px solid oklch(0.88 0.04 220 / 40%)",
+              "linear-gradient(135deg, oklch(0.97 0.02 220 / 80%), oklch(0.95 0.04 260 / 80%))",
+            borderRadius: "2rem",
+            margin: "2rem auto",
+            backdropFilter: "blur(10px)",
           }}
         >
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", damping: 20, stiffness: 200 }}
-            className="space-y-3"
+          <CakeSection onWishMade={() => setShowConfetti(true)} />
+        </section>
+      </ScrollReveal>
+
+      {/* Gift Section */}
+      <ScrollReveal className="relative z-10">
+        <section
+          className="mx-auto max-w-2xl px-4"
+          style={{
+            background:
+              "linear-gradient(135deg, oklch(0.97 0.02 280 / 80%), oklch(0.95 0.04 230 / 80%))",
+            borderRadius: "2rem",
+            margin: "2rem auto",
+            backdropFilter: "blur(10px)",
+          }}
+        >
+          <VirtualGiftBox />
+        </section>
+      </ScrollReveal>
+
+      {/* Birthday Wishes Cards */}
+      <ScrollReveal className="relative z-10">
+        <section
+          className="mx-auto max-w-2xl px-4"
+          style={{
+            background:
+              "linear-gradient(135deg, oklch(0.97 0.02 220 / 80%), oklch(0.96 0.03 260 / 80%))",
+            borderRadius: "2rem",
+            margin: "2rem auto",
+            backdropFilter: "blur(10px)",
+          }}
+        >
+          <BirthdayWishCards customCards={customCards} />
+        </section>
+      </ScrollReveal>
+
+      {/* Personal Note / Special Letter */}
+      <ScrollReveal className="relative z-10">
+        <section
+          className="mx-auto max-w-2xl px-4"
+          style={{
+            background:
+              "linear-gradient(135deg, oklch(0.97 0.03 200 / 80%), oklch(0.96 0.04 240 / 80%))",
+            borderRadius: "2rem",
+            margin: "2rem auto",
+            backdropFilter: "blur(10px)",
+          }}
+        >
+          <PersonalNoteCard profile={config} />
+        </section>
+      </ScrollReveal>
+
+      {/* Wishing Well */}
+      <ScrollReveal className="relative z-10">
+        <section
+          className="mx-auto max-w-2xl px-4"
+          style={{
+            background:
+              "linear-gradient(135deg, oklch(0.97 0.02 260 / 80%), oklch(0.95 0.04 220 / 80%))",
+            borderRadius: "2rem",
+            margin: "2rem auto",
+            backdropFilter: "blur(10px)",
+          }}
+        >
+          <WishingWell />
+        </section>
+      </ScrollReveal>
+
+      {/* Footer */}
+      <footer
+        className="relative z-10 py-10 text-center font-body"
+        style={{ color: "oklch(0.55 0.08 240)" }}
+      >
+        <p className="text-2xl mb-2">🎂🎈💖🎉🌟</p>
+        <p>
+          © {new Date().getFullYear()}. Built with{" "}
+          <span style={{ color: "oklch(0.65 0.18 25)" }}>♥</span> using{" "}
+          <a
+            href={`https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(typeof window !== "undefined" ? window.location.hostname : "")}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:opacity-80 transition-opacity"
+            style={{ color: "oklch(0.52 0.15 260)" }}
           >
-            <motion.div
-              animate={{ y: [0, -4, 0] }}
-              transition={{
-                duration: 3,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-              }}
-              className="text-3xl"
-            >
-              🎂✨🎈
-            </motion.div>
-            <p className="font-display text-xl font-bold text-sky-dark">
-              {profile.recipientName}&apos;s Special Day
-            </p>
-            <p className="font-body text-sm text-foreground/50">
-              Made with{" "}
-              <motion.span
-                animate={{ scale: [1, 1.4, 1] }}
-                transition={{
-                  duration: 1.6,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                }}
-                className="inline-block"
-              >
-                💙
-              </motion.span>{" "}
-              for{" "}
-              <span className="font-semibold text-sky-dark">
-                {profile.recipientName}
-              </span>{" "}
-              by{" "}
-              <span className="font-semibold text-sky-dark">
-                {profile.senderName}
-              </span>
-            </p>
-            <p className="font-body text-xs text-foreground/30">
-              © {new Date().getFullYear()}. Built with love using{" "}
-              <a
-                href={`https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline hover:text-sky-dark transition-colors"
-              >
-                caffeine.ai
-              </a>
-            </p>
-          </motion.div>
-        </footer>
-      </main>
+            caffeine.ai
+          </a>
+        </p>
+      </footer>
 
-      {/* Customize panel */}
-      <CustomizePanel profile={profile} />
-
-      {/* Toast notifications */}
-      <Toaster position="top-center" richColors />
+      <CustomizePanel
+        config={config}
+        onSave={handleSave}
+        customCards={customCards}
+        setCustomCards={setCustomCards}
+      />
+      <Toaster />
     </div>
   );
 }
 
-function SectionDivider({ emoji }: { emoji: string }) {
+export default function App() {
   return (
-    <motion.div
-      initial={{ opacity: 0, scaleX: 0.6 }}
-      whileInView={{ opacity: 1, scaleX: 1 }}
-      viewport={{ once: true, margin: "-20px" }}
-      transition={{ type: "spring", damping: 22, stiffness: 200 }}
-      className="flex items-center justify-center gap-4 py-2 px-6"
-    >
-      <div
-        className="flex-1 max-w-40 h-px"
-        style={{
-          background:
-            "linear-gradient(to right, transparent, oklch(0.72 0.12 230 / 35%))",
-        }}
-      />
-      <motion.span
-        whileInView={{ scale: [0.7, 1.3, 1], rotate: [0, 15, 0] }}
-        viewport={{ once: true }}
-        transition={{ type: "spring", damping: 10, stiffness: 200, delay: 0.1 }}
-        className="text-2xl select-none"
-      >
-        {emoji}
-      </motion.span>
-      <div
-        className="flex-1 max-w-40 h-px"
-        style={{
-          background:
-            "linear-gradient(to left, transparent, oklch(0.72 0.12 230 / 35%))",
-        }}
-      />
-    </motion.div>
+    <QueryClientProvider client={queryClient}>
+      <BirthdayApp />
+    </QueryClientProvider>
   );
 }
