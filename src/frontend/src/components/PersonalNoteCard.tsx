@@ -41,7 +41,7 @@ export default function PersonalNoteCard({ profile }: PersonalNoteCardProps) {
             delay: 0.12,
           }}
           data-ocid="gift.card"
-          className={`flip-card h-72 mx-auto ${flipped ? "flipped" : ""}`}
+          className={`letter-flip-card mx-auto w-full max-w-xl ${flipped ? "flipped" : ""}`}
           onClick={() => setFlipped(!flipped)}
           tabIndex={0}
           onKeyDown={(e) => e.key === "Enter" && setFlipped(!flipped)}
@@ -49,20 +49,18 @@ export default function PersonalNoteCard({ profile }: PersonalNoteCardProps) {
             flipped ? "Click to close message" : "Click to open message"
           }
         >
-          <div className="flip-card-inner">
+          <div className="letter-flip-card-inner">
             {/* Front: Envelope */}
-            <div className="flip-card-front glass-card flex flex-col items-center justify-center shadow-birthday overflow-hidden">
-              {/* Envelope SVG */}
+            <div className="letter-flip-card-front glass-card flex flex-col items-center justify-center shadow-birthday overflow-hidden">
               <div className="relative">
                 <svg
-                  width="180"
-                  height="130"
+                  width="200"
+                  height="145"
                   viewBox="0 0 180 130"
                   fill="none"
                   aria-label="Envelope"
                   role="img"
                 >
-                  {/* Envelope body */}
                   <rect
                     x="10"
                     y="30"
@@ -79,9 +77,7 @@ export default function PersonalNoteCard({ profile }: PersonalNoteCardProps) {
                     rx="10"
                     fill="url(#envGrad)"
                   />
-                  {/* Flap */}
                   <path d="M10 30 L90 85 L170 30 Z" fill="#93c5fd" />
-                  {/* Bottom fold lines */}
                   <path
                     d="M10 125 L60 80"
                     stroke="#60a5fa"
@@ -94,7 +90,6 @@ export default function PersonalNoteCard({ profile }: PersonalNoteCardProps) {
                     strokeWidth="1.5"
                     opacity="0.5"
                   />
-                  {/* Seal */}
                   <circle cx="90" cy="85" r="16" fill="#fbbf24" opacity="0.9" />
                   <text x="90" y="91" textAnchor="middle" fontSize="16">
                     💛
@@ -126,9 +121,9 @@ export default function PersonalNoteCard({ profile }: PersonalNoteCardProps) {
               </p>
             </div>
 
-            {/* Back: Personal note — warm depth treatment */}
+            {/* Back: Personal note */}
             <div
-              className="flip-card-back flex flex-col items-center justify-center p-8 stars-bg"
+              className="letter-flip-card-back flex flex-col items-center justify-center p-10 stars-bg"
               style={{
                 background:
                   "linear-gradient(145deg, oklch(0.96 0.04 225 / 90%) 0%, oklch(0.98 0.02 250 / 85%) 50%, oklch(0.96 0.05 75 / 80%) 100%)",
@@ -137,7 +132,7 @@ export default function PersonalNoteCard({ profile }: PersonalNoteCardProps) {
                 border: "1px solid oklch(0.90 0.04 220 / 65%)",
               }}
             >
-              <div className="relative text-center space-y-4 max-w-xs">
+              <div className="relative text-center space-y-4 w-full max-w-md">
                 <motion.div
                   initial={{ opacity: 0, y: 12, scale: 0.95 }}
                   animate={
@@ -164,7 +159,7 @@ export default function PersonalNoteCard({ profile }: PersonalNoteCardProps) {
                   >
                     💙
                   </motion.span>
-                  <p className="font-display text-xl md:text-2xl font-bold text-sky-dark leading-relaxed italic">
+                  <p className="font-display text-lg md:text-xl font-bold text-sky-dark leading-relaxed italic whitespace-pre-wrap break-words">
                     &ldquo;{profile.personalNote}&rdquo;
                   </p>
                   <div className="flex items-center justify-center gap-2 mt-5">

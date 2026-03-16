@@ -97,6 +97,7 @@ export interface Wish {
 export interface BirthdayProfile {
     giftBoxColor: string;
     birthdayDate: string;
+    heroMessage: string;
     bowStyle: string;
     senderName: string;
     surpriseMessage: string;

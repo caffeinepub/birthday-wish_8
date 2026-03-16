@@ -228,7 +228,6 @@
   position: relative;
   width: 100%;
   height: 100%;
-  /* Overshoot spring: ease past 180°, settle back */
   transition: transform 0.9s cubic-bezier(0.34, 1.40, 0.64, 1);
   transform-style: preserve-3d;
   will-change: transform;
@@ -246,7 +245,6 @@
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   border-radius: 1.5rem;
-  /* Premium inner highlight */
   box-shadow:
     0 0 0 1px oklch(0.92 0.04 220 / 60%),
     0 8px 40px oklch(0.62 0.16 230 / 18%),
@@ -255,6 +253,46 @@
 }
 
 .flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* ===== SPECIAL LETTER CARD — larger, text-friendly ===== */
+.letter-flip-card {
+  perspective: 1600px;
+  cursor: pointer;
+  height: 480px;
+}
+
+.letter-flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.9s cubic-bezier(0.34, 1.40, 0.64, 1);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.letter-flip-card.flipped .letter-flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.letter-flip-card-front,
+.letter-flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 1.5rem;
+  box-shadow:
+    0 0 0 1px oklch(0.92 0.04 220 / 60%),
+    0 8px 40px oklch(0.62 0.16 230 / 18%),
+    0 2px 8px oklch(0.18 0.04 230 / 8%),
+    inset 0 1px 0 oklch(1 0 0 / 50%);
+  overflow: auto;
+}
+
+.letter-flip-card-back {
   transform: rotateY(180deg);
 }
 
@@ -291,21 +329,15 @@
 .birthday-bg {
   background-color: oklch(0.965 0.022 215);
   background-image:
-    /* Fine noise texture */
     url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"),
-    /* Top-left aurora — deep sky blue */
     radial-gradient(ellipse 80% 60% at 10% 0%, oklch(0.82 0.12 222 / 55%) 0%, transparent 65%),
-    /* Top-right bloom — soft violet */
     radial-gradient(ellipse 60% 50% at 90% 5%, oklch(0.86 0.1 285 / 38%) 0%, transparent 60%),
-    /* Center-left wash — pale sky */
     radial-gradient(ellipse 50% 40% at 0% 50%, oklch(0.90 0.07 215 / 30%) 0%, transparent 55%),
-    /* Bottom gold warmth */
     radial-gradient(ellipse 70% 45% at 55% 100%, oklch(0.94 0.08 75 / 28%) 0%, transparent 60%),
-    /* Bottom-right — blush */
     radial-gradient(ellipse 55% 40% at 100% 90%, oklch(0.90 0.08 345 / 22%) 0%, transparent 55%);
 }
 
-/* Shimmer effect — richer multi-stop */
+/* Shimmer effect */
 @keyframes shimmer {
   0% { background-position: -300% center; }
   100% { background-position: 300% center; }
@@ -328,7 +360,6 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shimmer 5s linear infinite;
-  /* Subtle letter-spacing for display text */
   letter-spacing: -0.02em;
 }
 
@@ -386,7 +417,6 @@
 
 /* ===== SECTION DEPTH ===== */
 
-/* Hero gets the richest aurora — already handled by birthday-bg + canvas balloons */
 section[data-ocid="hero.section"] {
   background-image:
     radial-gradient(ellipse 65% 55% at 15% 20%, oklch(0.80 0.14 220 / 45%) 0%, transparent 60%),
@@ -395,21 +425,18 @@ section[data-ocid="hero.section"] {
   background-color: oklch(0.965 0.022 215);
 }
 
-/* Personal note section — cool moonlight */
 .note-section-bg {
   background-image:
     radial-gradient(ellipse 70% 60% at 80% 30%, oklch(0.88 0.08 250 / 30%) 0%, transparent 60%),
     radial-gradient(ellipse 50% 40% at 20% 70%, oklch(0.92 0.06 215 / 25%) 0%, transparent 55%);
 }
 
-/* Gift section — warm gold bloom */
 .gift-section-bg {
   background-image:
     radial-gradient(ellipse 60% 50% at 50% 50%, oklch(0.94 0.10 75 / 22%) 0%, transparent 60%),
     radial-gradient(ellipse 40% 35% at 80% 80%, oklch(0.87 0.10 345 / 18%) 0%, transparent 50%);
 }
 
-/* Activities section — playful multi-color */
 .activities-section-bg {
   background-image:
     radial-gradient(ellipse 55% 45% at 10% 20%, oklch(0.88 0.10 210 / 28%) 0%, transparent 55%),
@@ -419,7 +446,6 @@ section[data-ocid="hero.section"] {
 
 /* ===== PREMIUM INTERACTIVE STATES ===== */
 
-/* Buttons — premium hover glow */
 .btn-sky {
   background: linear-gradient(135deg, oklch(0.65 0.18 228), oklch(0.58 0.20 235));
   box-shadow: 0 4px 20px oklch(0.62 0.16 230 / 35%), inset 0 1px 0 oklch(1 0 0 / 25%);
@@ -453,7 +479,6 @@ section[data-ocid="hero.section"] {
   transform: translateY(0) scale(0.97);
 }
 
-/* Section heading accent line */
 .heading-accent {
   display: inline-block;
   position: relative;
@@ -470,7 +495,6 @@ section[data-ocid="hero.section"] {
   opacity: 0.7;
 }
 
-/* Countdown panel — pulsing glow ring */
 @keyframes ring-pulse {
   0%, 100% { box-shadow: 0 0 0 0 oklch(0.62 0.16 230 / 30%), 0 4px 20px oklch(0.62 0.16 230 / 12%); }
   50%       { box-shadow: 0 0 0 6px oklch(0.62 0.16 230 / 0%), 0 4px 24px oklch(0.62 0.16 230 / 22%); }
@@ -479,7 +503,6 @@ section[data-ocid="hero.section"] {
   animation: ring-pulse 3s ease-in-out infinite;
 }
 
-/* Wish wall card hover */
 .wish-card {
   transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
               box-shadow 0.25s ease;
@@ -491,13 +514,11 @@ section[data-ocid="hero.section"] {
 
 /* ===== TYPOGRAPHY POLISH ===== */
 
-/* Display headings — optical tightening */
 .font-display {
   font-family: 'Fraunces', Georgia, serif;
   font-optical-sizing: auto;
 }
 
-/* Section label pill */
 .label-pill {
   display: inline-flex;
   align-items: center;
@@ -515,7 +536,6 @@ section[data-ocid="hero.section"] {
   backdrop-filter: blur(8px);
 }
 
-/* Scroll indicator */
 @keyframes scroll-bounce {
   0%, 100% { transform: translateY(0); opacity: 0.5; }
   50% { transform: translateY(10px); opacity: 1; }

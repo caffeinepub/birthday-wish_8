@@ -80,7 +80,8 @@ export function HeroSection({ config }: Props) {
           className="text-lg md:text-xl max-w-lg text-center font-body"
           style={{ color: "oklch(0.40 0.08 240)" }}
         >
-          {config.personalNote}
+          {config.heroMessage ||
+            "Wishing you a day as bright and beautiful as you are! 🎂"}
         </p>
 
         {/* Sender name - prominent display */}

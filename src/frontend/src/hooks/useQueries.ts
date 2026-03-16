@@ -6,6 +6,7 @@ const DEFAULT_PROFILE: BirthdayProfile = {
   recipientName: "Alex",
   senderName: "Your Loved Ones",
   birthdayDate: new Date().toISOString().split("T")[0],
+  heroMessage: "Wishing you a day as bright and beautiful as you are! 🎂",
   personalNote:
     "Wishing you all the happiness in the world on your special day!",
   giftBoxColor: "#60a5fa",

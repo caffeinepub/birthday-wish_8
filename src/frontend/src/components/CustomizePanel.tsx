@@ -361,11 +361,30 @@ function FormFields({
       </div>
       <div className="flex flex-col gap-1">
         <label
+          htmlFor="ff-hero-message"
+          className="font-body text-sm font-semibold"
+          style={{ color: "oklch(0.45 0.08 240)" }}
+        >
+          🌟 Hero Message (shown on main screen)
+        </label>
+        <textarea
+          id="ff-hero-message"
+          data-ocid="customize.textarea"
+          value={form.heroMessage || ""}
+          onChange={(e) => setForm({ ...form, heroMessage: e.target.value })}
+          placeholder="Message shown below the recipient's name..."
+          rows={2}
+          className="px-3 py-2 rounded-xl border-2 font-body resize-none"
+          style={{ borderColor: "oklch(0.80 0.08 230)", outline: "none" }}
+        />
+      </div>
+      <div className="flex flex-col gap-1">
+        <label
           htmlFor="ff-message"
           className="font-body text-sm font-semibold"
           style={{ color: "oklch(0.45 0.08 240)" }}
         >
-          💌 Special Letter Text
+          💌 Special Letter Text (shown inside envelope)
         </label>
         <textarea
           id="ff-message"

@@ -16,6 +16,7 @@ export const Wish = IDL.Record({
 export const BirthdayProfile = IDL.Record({
   'giftBoxColor' : IDL.Text,
   'birthdayDate' : IDL.Text,
+  'heroMessage' : IDL.Text,
   'bowStyle' : IDL.Text,
   'senderName' : IDL.Text,
   'surpriseMessage' : IDL.Text,
@@ -44,6 +45,7 @@ export const idlFactory = ({ IDL }) => {
   const BirthdayProfile = IDL.Record({
     'giftBoxColor' : IDL.Text,
     'birthdayDate' : IDL.Text,
+    'heroMessage' : IDL.Text,
     'bowStyle' : IDL.Text,
     'senderName' : IDL.Text,
     'surpriseMessage' : IDL.Text,

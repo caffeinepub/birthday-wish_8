@@ -5,13 +5,17 @@ import Time "mo:core/Time";
 import Order "mo:core/Order";
 import Text "mo:core/Text";
 import Map "mo:core/Map";
+
 import Runtime "mo:core/Runtime";
+
+// Attach migration logic via 'with' clause
 
 actor {
   type BirthdayProfile = {
     recipientName : Text;
     senderName : Text;
     birthdayDate : Text;
+    heroMessage : Text;
     personalNote : Text;
     giftBoxColor : Text;
     ribbonColor : Text;
@@ -33,7 +37,6 @@ actor {
   };
 
   var birthdayProfile : ?BirthdayProfile = null;
-
   let wishes = Map.empty<Nat, Wish>();
   var wishCounter = 0;
 

@@ -13,6 +13,7 @@ import type { Principal } from '@icp-sdk/core/principal';
 export interface BirthdayProfile {
   'giftBoxColor' : string,
   'birthdayDate' : string,
+  'heroMessage' : string,
   'bowStyle' : string,
   'senderName' : string,
   'surpriseMessage' : string,
